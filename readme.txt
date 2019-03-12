@@ -1,5 +1,6 @@
 
-Task Done
+#Hotel Listing 
+Get Data from JSON
 
 1. I have Created hotel listing page using AngularJS 1.6, Angular Material Design, HTML and CSS.
 2. Get data from api.json for medium thumbnail, rating, currency code, price, address and name of the hotel for each list. 
