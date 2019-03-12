@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="hotelsApp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Hotel Listing</title>
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<!-- Angular Material style sheet -->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+<link href="resources/css/app.css" rel="stylesheet">
+</head>
+<body layout ng-controller="webController" ng-cloak>
+	<div flex layout="column">
+    	<md-toolbar>
+        	<div class="md-toolbar-tools" layout layout-align="center center"> 
+            	Hotel Listing
+            </div>
+        </md-toolbar>
+        <md-content>
+        	<div class="container" layout-xs="column" layout="row" layout-wrap>
+                            <md-input-container class="md-block" layout layout-align="start center" flex-xs="100" flex-sm="100" flex-gt-sm="40">
+                                    <label>Search by Hotel Name</label>
+                                    <input ng-model="SearchHotel">
+                                  </md-input-container>
+                    <div layout layout-align="end center" flex-xs="100" flex-sm="100" flex-gt-sm="60">
+                        <md-button ng-disabled="true" md-colors="{color:'accent-A200'}" class="md-primary">Sort By : </md-button>
+                        <md-button class="md-raised" ng-click="tab(1)">Name</md-button>
+                        <md-button class="md-raised" ng-click="tab(2)">Rating</md-button>
+                        <md-button class="md-raised" ng-click="tab(3)">Price</md-button>
+                    </div> 
+                  <div flex-xs="100" flex-sm="50" flex-gt-sm="33" layout ng-repeat="hotel in hotels | filter:SearchHotel | orderBy:sort" class="repeatAnimation">
+                    <md-card flex>
+                      <div class="card-image-container" layout layout-align="center center">
+                      	 <img src="{{hotel.ThumbNailUrl}}" class="md-card-image">
+                         <div class="image-overlay" layout layout-align="center center">
+                         	<div class="overlay-text">
+                            	<div class="md-title">{{hotel.HotelName}}</div>
+                            </div>
+                         </div>
+                      </div>
+                      <md-card-title>
+                        <md-card-title-text>
+                          <span class="md-headline hotel-headline">{{hotel.HotelName}}</span>
+                          <span class="md-subhead author-name" md-colors="{color:'primary-A400'}">{{hotel.add}}</span>
+                        </md-card-title-text>
+                      </md-card-title>
+                      
+                      <md-card-content>
+                            <md-card-actions class="nomargin" layout="row" layout-align="start center">
+                                <div class="md-caption" layout layout-align="start center"  
+                                ng-repeat="n in getNumber(hotel.PropertyRating) track by $index" 
+                                md-colors="{color:'accent-A200'}">
+                                  <md-icon class="md-22 yellow">star</md-icon>
+                                  <md-tooltip md-direction="bottom">Rating : {{hotel.PropertyRating}}</md-tooltip>
+                                </div>
+                            </md-card-actions>
+                      </md-card-content>
+                      
+                      <md-divider></md-divider>
+                      <md-card-actions class="card-nav-row" layout="row" layout-align="end center">
+                            <p layout layout-align="start center" class="md-title nomargin" md-colors="{color:'accent-A200'}">
+                                <span class="curerncy">{{hotel.RateCurrencyCode}}</span> {{hotel.TotalCharges}}</p>
+                       </md-card-actions>
+                        </md-card>
+                  </div>     
+              </div>
+        </md-content>
+    </div>
+    <div class="loadingDiv"
+		ng-show="loading"
+		layout layout-align="center center">
+		<md-progress-circular
+			class="md-accent md-hue-1" md-mode="indeterminate" md-diameter="50"></md-progress-circular>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<!-- Angular Material requires Angular.js Libraries -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-aria.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-messages.min.js"></script>
+	<!-- Angular Material Library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script>
+	<script src="resources/js/app.js"></script>
+    <script src="resources/js/dataService.js"></script>
+	
+</body>
+</html>
